@@ -14,6 +14,9 @@ import docusign_esign as docusign
 from docusign_esign import AuthenticationApi, EnvelopesApi, TemplatesApi, DiagnosticsApi
 from docusign_esign.rest import ApiException
 
+# import sys
+# import os
+# import comtypes.client
 
 
 
@@ -76,7 +79,7 @@ def gen_word_doc(text, coords):
     #print(text)
     doc = Document()
     doc.save('contract.docx')
-    doc.add_heading('yoooooooooooooooo')
+    # doc.add_heading('yoooooooooooooooo')
     paragraphs = findAll(text, '\n')
     for i in range(len(paragraphs)-1):
         lines = []
@@ -104,16 +107,17 @@ def gen_word_doc(text, coords):
     doc.save('contract.docx')
     return doc
 
-def testRequestASignature(f):
-    username = "lyy@mit.edu"
+def testRequestASignature():
+    username = "22a3670e-5f13-45fd-b2b8-ecca4a8e2b25"
     password = "applepie"
     integrator_key = "26ec5e49-a531-4457-ab81-163d76f37a17"
     BASE_URL = "https://demo.docusign.net/restapi"
-    user_id = "22a3670e-5f13-45fd-b2b8-ecca4a8e2b25"
+    user_id = "39c6e30b-3b99-486f-a671-96acc240d7ab"
     oauth_base_url = "account-d.docusign.com" # use account.docusign.com for Live/Production
     api_client = docusign.ApiClient(BASE_URL)
     redirect_uri = "https://www.docusign.com"
     private_key_filename = 'private_key2.txt'
+    
     # IMPORTANT NOTE:
     # the first time you ask for a JWT access token, you should grant access by making the following call
     # get DocuSign OAuth authorization url:
@@ -129,8 +133,8 @@ def testRequestASignature(f):
     docusign.configuration.api_client = api_client
 
     # sign_test1_file = "test/docs/SignTest1.pdf"
-    # file_contents = open('contract.docx', 'rb').read()
-    file_contents = f
+    file_contents = open('/Users/lisayoo/Desktop/contract.pdf', 'rb').read()
+  
     # create an envelope to be signed
     envelope_definition = docusign.EnvelopeDefinition()
     envelope_definition.email_subject = "Hi! Here's your annotated contract."
@@ -140,14 +144,14 @@ def testRequestASignature(f):
     doc = docusign.Document()
     base64_doc = base64.b64encode(file_contents).decode("utf-8")
     doc.document_base64 = base64_doc
-    doc.name = 'annotated.docx'
+    doc.name = "test.pdf"
     doc.document_id = '1'
     envelope_definition.documents = [doc]
 
     # Add a recipient to sign the document
     signer = docusign.Signer()
-    signer.email = username
-    signer.name = 'Lisa Yoo'
+    signer.email = "kwicks@mit.edu"
+    signer.name = 'Kat Wicks'
     signer.recipient_id = '1'
 
     # Create a SignHere tab somewhere on the document for the signer to sign
@@ -180,8 +184,8 @@ def testRequestASignature(f):
         assert login_accounts[0].account_id is not None
 
         base_url, _ = login_accounts[0].base_url.split('/v2')
-        self.api_client.host = base_url
-        docusign.configuration.api_client = self.api_client
+        api_client.host = base_url
+        docusign.configuration.api_client = api_client
 
         envelope_summary = envelopes_api.create_envelope(login_accounts[0].account_id, envelope_definition=envelope_definition)
         assert envelope_summary is not None
@@ -189,7 +193,7 @@ def testRequestASignature(f):
         assert envelope_summary.status == 'sent'
 
         print("EnvelopeSummary: ", end="")
-        pprint(envelope_summary)
+        print(envelope_summary)
 
     except ApiException as e:
         print("\nException when calling DocuSign API: %s" % e)
@@ -213,8 +217,18 @@ print(str(doc))
 # print(doc)
 to_highlight = get_coodinates(str(doc), important_phrases)
 highlighted_doc = gen_word_doc(doc, to_highlight)
-with open("contract.docx", "rb") as f:
+
+# in_file = os.path.abspath('/Desktop/contract.docx')
+# out_file = os.path.abspath('/Desktop/contract.pdf')
+
+# word = comtypes.client.CreateObject('/Desktop/contract.pdf')
+# doc = word.Documents.Open(in_file)
+# doc.SaveAs(out_file, FileFormat=wdFormatPDF)
+# doc.Close()
+# word.Quit()
+
+testRequestASignature()
+#with open("contract.docx", "rb") as f:
 
     #highlighted_b64 = base64.b64encode(f.read())
-    testRequestASignature(f.read())
-print(type(highlighted_b64))
+#   testRequestASignature(f.read())
