@@ -1,6 +1,5 @@
 # Contract Annotator
-#### HackMIT 2018 project by Lisa Yoo and Kat Wicks
-#### Runner-Up for Best Use of DocuSign's eSignature API
+#### HackMIT 2018 project by Lisa Yoo and Kat Wicks || Runner-Up for Best Use of DocuSign's eSignature API
 
 ## Inspiration
 Contracts are confusing! They're long, they have obscure jargon, but they need to be carefully read and understood. We created this tool in order to make this process easier by highlighting the most important parts of your contract so you don't miss them. Contract Annotator streamlines contract comprehension, and allows entrepreneurs, students, and all people who don't have the time or money to retain and wait for a lawyer to work with contracts effectively.
