@@ -14,11 +14,6 @@ import docusign_esign as docusign
 from docusign_esign import AuthenticationApi, EnvelopesApi, TemplatesApi, DiagnosticsApi
 from docusign_esign.rest import ApiException
 
-# import sys
-# import os
-# import comtypes.client
-
-
 
 def extract_text(pdf):
     document = open(pdf, 'rb')
@@ -61,17 +56,6 @@ def get_coodinates(text, important):
 
     return coordinates
 
-# def findAll(st, ch):
-#   first = st.find(ch)
-#   indices = [first]
-#   i = 0
-#   while first != -1 and i < len(st[i:]):
-#       i = first+1
-#       first = st[i:].find(ch)
-#       indices.append(first)
-#       print("first:", first)
-#       print("i:", i)
-#   return indices
 def findAll(s, ch):
     return [i for i, ltr in enumerate(s) if ltr == ch]
 
@@ -153,19 +137,6 @@ def testRequestASignature():
     signer.email = "kwicks@mit.edu"
     signer.name = 'Kat Wicks'
     signer.recipient_id = '1'
-
-    # Create a SignHere tab somewhere on the document for the signer to sign
-    # sign_here = docusign.SignHere()
-    # sign_here.document_id = '1'
-    # sign_here.page_number = '1'
-    # sign_here.recipient_id = '1'
-    # sign_here.x_position = '100'
-    # sign_here.y_position =  '100'
-    # sign_here.scale_value = '0.5'
-
-    # tabs = docusign.Tabs()
-    # tabs.sign_here_tabs = [sign_here]
-    # signer.tabs = tabs
 
     recipients = docusign.Recipients()
     recipients.signers = [signer]
