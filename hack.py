@@ -170,7 +170,6 @@ def testRequestASignature():
         print("\nException when calling DocuSign API: %s" % e)
         assert e is None # make the test case fail in case of an API exception
 
-#important_phrases = set(("arbitration", "sign","initial", "$", "probation", "leave", "confidentiality", "non-compete", "termination", "penalty", "liability", "indemnity", "conflict resolution", "damages", "time is of the essence", "nullification", "entire agreement", "fees", "subcontract", "force maejeure", "governed by the laws of"))
 important_phrases = set(("arbitration", "signature","initial", "governed", "$", "probation", "leave", "confidentiality", "non-compete", "termination", "penalty", "liability", "indemnity", "conflict", "damages", "nullification",  "fees", "subcontract"))
 lemmatizer = WordNetLemmatizer()
 contract_words = []
@@ -199,7 +198,3 @@ highlighted_doc = gen_word_doc(doc, to_highlight)
 # word.Quit()
 
 testRequestASignature()
-#with open("contract.docx", "rb") as f:
-
-    #highlighted_b64 = base64.b64encode(f.read())
-#   testRequestASignature(f.read())
